@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - 2472037</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+        }
+        .box {
+            display: grid;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <b><u>Penjumlahan</u></b>
+        <button onclick="jumlah()">Refresh</button>
+        <div>
+            <input type="number" name="" id="tambah1"> +
+            <input type="number" name="" id="tambah2"> =
+            <input type="number" name="" id="jml">
+            <button onclick="cekjml()">Cek Hasil</button>
+        </div>
+        <p id="hasiljml"></p>
+    </div>
+    <div class="box">
+        <b><u>Pengurangan</u></b>
+        <button onclick="kurang()">Refresh</button>
+        <div>
+            <input type="text" name="" id="kurang1"> -
+            <input type="text" name="" id="kurang2"> =
+            <input type="text" name="" id="krg">
+            <button onclick="cekkrg()">Cek Hasil</button>
+        </div>
+        <p id="hasilkrg"></p>
+    </div>
+    <div>
+        <b><u>Nilai Bilangan</u></b>
+        <div>
+            <input type="text" name="" id=""> =
+            <input type="text" name="" id=""> +
+            <input type="text" name="" id=""> +
+            <input type="text" name="" id="">
+        </div>
+    </div>
+
+    <script>
+        
+        function jumlah () {
+            let tambah1 = Math.floor(Math.random() * 20)
+            let tambah2 = Math.floor(Math.random() * 20)
+            document.getElementById('tambah1').value = tambah1
+            document.getElementById('tambah2').value = tambah2
+        }
+        function cekjml () {
+            document.getElementById('jml')
+            if (jml =(tambah1 + tambah2)) {
+                hasiltext = 'Jawaban Benar'
+            } else {
+                hasiltext = 'Jawaban Salah'
+            }
+            document.getElementById("hasiljml").innerText = hasiltext
+        }
+
+        function kurang() {
+            let kurang1 = Math.floor(Math.random() * 20)
+            let kurang2 = Math.floor(Math.random() * 20)
+            document.getElementById('kurang1').value = kurang1
+            document.getElementById('kurang2').value = kurang2
+        }
+        function cekkrg () {
+            document.getElementById('krg')
+            if (jml =(kurang1 - kurang)) {
+                hasiltext = 'Jawaban Benar'
+            } else {
+                hasiltext = 'Jawaban Salah'
+            }
+            document.getElementById("hasilkrg").innerText = hasiltext
+        }
+    </script>
+</body>
+</html>
