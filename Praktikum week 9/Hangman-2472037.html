@@ -1,18 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangman - 2472037</title>
-    <style>
-        body {
-            background-color: lightblue;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Hangman - 2472037</title>
+  <style>
+    body {
+      background-color: lightblue;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .left {
+      flex: 1;
+      text-align: center;
+    }
+
+    .left img {
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    .right {
+      flex: 2;
+    }
+
+    h1 {
+      letter-spacing: 2px;
+    }
+
+    #answerDisplay {
+      font-size: 24px;
+      letter-spacing: 10px;
+      margin: 10px 0;
+    }
+
+    #lives {
+      font-weight: bold;
+    }
+
+    .input-box {
+      margin-top: 10px;
+    }
+
+    .input-box input {
+      width: 40px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-    
+  <h1>Hangman Game</h1>
+
+  <div class="container">
+    <!-- LEFT -->
+    <div class="left">
+      <img src="img/10.jpg" alt="Gambar Hangman" id="hangman">
+      <p>Lives: <span id="lives">10</span></p>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <!-- JAWABAN DI ATAS -->
+      <p id="answerDisplay"></p>
+      <p id="clue"></p>
+
+      <div class="input-box">
+        <label for="guess">Tebak Huruf:</label>
+        <input type="text" id="guess" maxlength="1">
+        <button onclick="checkAnswer()">Cek</button>
+      </div>
+
+      <p class="result" id="resultText"></p>
+    </div>
+  </div>
+
+  <script>
+    const answers = ["PYTHON", "JAVASCRIPT", "TAILWIND", "REACT", "LARAVEL"];
+    const clues = [
+      "A versatile programming language named after a snake, loved for its simplicity.",
+      "The language that brings interactivity to websites, often abbreviated as JS.",
+      "A utility-first CSS framework for rapidly building custom designs.",
+      "A JavaScript library for building dynamic user interfaces, created by Facebook.",
+      "A PHP framework known for elegant syntax and robust web development tools."
+    ];
+
+    let answer = "";
+    let answer_ = "";
+    let lives = 10;
+
+    function generate() {
+      const index = Math.floor(Math.random() * answers.length);
+      answer = answers[index];
+      answer_ = "_".repeat(answer.length);
+      lives = 10;
+
+      document.getElementById("clue").innerText = clues[index];
+      document.getElementById("answerDisplay").innerText = answer_.split("").join(" ");
+      document.getElementById("lives").innerText = lives;
+      document.getElementById("resultText").innerText = "";
+      document.getElementById("resultText").className = "";
+      document.getElementById("hangman").src = "img/" + lives + ".jpg";
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById("guess");
+      let char = input.value.toUpperCase();
+      input.value = "";
+
+      if (char === "" || !char.match(/[A-Z]/)) return;
+
+      let found = false;
+      let newAnswer = answer_.split("");
+
+      for (let i = 0; i < answer.length; i++) {
+        if (answer[i] === char && answer_[i] === "_") {
+          newAnswer[i] = char;
+          found = true;
+        }
+      }
+
+      if (!found) {
+        lives--;
+        document.getElementById("hangman").src = "img/" + lives + ".jpg";
+      }
+
+      answer_ = newAnswer.join("");
+      document.getElementById("answerDisplay").innerText = answer_.split("").join(" ");
+      document.getElementById("lives").innerText = lives;
+
+      checkWin();
+    }
+
+    function checkWin() {
+      const resultText = document.getElementById("resultText");
+
+      if (answer_ === answer) {
+        resultText.innerText = "Kamu Menang!";
+        resultText.className = "result green";
+      } else if (lives <= 0) {
+        resultText.innerText = "Kamu Kalah";
+        resultText.className = "result red";
+        document.getElementById("answerDisplay").innerText = answer.split("").join(" ");
+      }
+    }
+
+    window.onload = generate;
+  </script>
 </body>
 </html>

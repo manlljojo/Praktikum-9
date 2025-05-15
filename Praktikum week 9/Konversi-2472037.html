@@ -1,69 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Konversi - 2472037</title>
-    <style>
-        body {
-            background-color: antiquewhite;
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 20px;
-            color: #555;
-        }
-        div {
-            text-align: center;
-            border: 1px solid white;
-            background-color: white;
-            padding: 50px 50px;
-            display: grid;
-        }
-        p {
-            color: #555;
-        }
-        label, select, input, button {
-            display: block;
-            margin: 5px;
-        }
-        button {
-            background-color: #2575fc;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Konversi Mata Uang - 2472037</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial;
+      background-color: antiquewhite;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #2575fc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <h3>Konverter Mata Uang</h3>
-        <p>Jumlah Uang</p>
-        <input type="text" placeholder="">
-        <p>Dari Mata Uang</p>
-        <select name="" id="">
-            <option value="">USD - Dollar Amerika</option>
-            <option value="">IDR - Rupiah Indonesia</option>
-            <option value="">JPY - Yen Jepang</option>
-            <option value="">GBP - Pound Inggris</option>
-            <option value="">SGD - Dollar Singapura</option>
-            <option value="">AUD - Dollar Australia</option>
-        </select>
-        <p>Ke Mata Uang</p>
-        <select name="" id="">
-            <option value="">USD - Dollar Amerika</option>
-            <option value="">IDR - Rupiah Indonesia</option>
-            <option value="">JPY - Yen Jepang</option>
-            <option value="">GBP - Pound Inggris</option>
-            <option value="">SGD - Dollar Singapura</option>
-            <option value="">AUD - Dollar Australia</option>
-        </select>
-        <br>
-        <button>Konversi</button>
-        <h3 style="color: #2575fc;"></h3>
-    </div>
+  <div class="card">
+    <h2>Konversi Mata Uang</h2>
 
-    <script>
+    <input type="number" id="amount" placeholder="Jumlah">
+    <select id="from">
+      <option value="USD">USD - Dollar Amerika</option>
+      <option value="IDR">IDR - Rupiah Indonesia</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="JPY">JPY - Yen Jepang</option>
+      <option value="GBP">GBP - Pound Inggris</option>
+      <option value="SGD">SGD - Dollar Singapura</option>
+      <option value="AUD">AUD - Dollar Australia</option>
+    </select>
+    <select id="to">
+      <option value="USD">USD - Dollar Amerika</option>
+      <option value="IDR">IDR - Rupiah Indonesia</option>
+      <option value="EUR">EUR - Euro</option>
+      <option value="JPY">JPY - Yen Jepang</option>
+      <option value="GBP">GBP - Pound Inggris</option>
+      <option value="SGD">SGD - Dollar Singapura</option>
+      <option value="AUD">AUD - Dollar Australia</option>
+    </select>
 
-    </script>
+    <button onclick="convert()">Konversi</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const kursIDR = {
+      USD: 16500,
+      IDR: 1,
+      EUR: 18500,
+      JPY: 165,
+      GBP: 22000,
+      SGD: 12750,
+      AUD: 10500
+    };
+
+    function convert() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+
+      if (isNaN(amount)) {
+        document.getElementById("result").innerText = "Masukkan jumlah yang valid!";
+        return;
+      }
+
+      const inIDR = amount * kursIDR[from];        
+      const final = inIDR / kursIDR[to];           
+      document.getElementById("result").innerText =
+        `${amount} ${from} = ${final.toFixed(2)} ${to}`;
+    }
+  </script>
 </body>
 </html>

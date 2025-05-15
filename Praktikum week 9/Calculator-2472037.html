@@ -1,86 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator - 2472037</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 20px;
-        }
-        .box {
-            display: grid;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator - 2472037</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 20px;
+    }
+    .box {
+      display: grid;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="box">
-        <b><u>Penjumlahan</u></b>
-        <button onclick="jumlah()">Refresh</button>
-        <div>
-            <input type="number" name="" id="tambah1"> +
-            <input type="number" name="" id="tambah2"> =
-            <input type="number" name="" id="jml">
-            <button onclick="cekjml()">Cek Hasil</button>
-        </div>
-        <p id="hasiljml"></p>
-    </div>
-    <div class="box">
-        <b><u>Pengurangan</u></b>
-        <button onclick="kurang()">Refresh</button>
-        <div>
-            <input type="text" name="" id="kurang1"> -
-            <input type="text" name="" id="kurang2"> =
-            <input type="text" name="" id="krg">
-            <button onclick="cekkrg()">Cek Hasil</button>
-        </div>
-        <p id="hasilkrg"></p>
-    </div>
+  <div class="box">
+    <b><u>Penjumlahan</u></b>
+    <button onclick="jumlah()">Refresh</button>
     <div>
-        <b><u>Nilai Bilangan</u></b>
-        <div>
-            <input type="text" name="" id=""> =
-            <input type="text" name="" id=""> +
-            <input type="text" name="" id=""> +
-            <input type="text" name="" id="">
-        </div>
+      <input type="number" id="tambah1" readonly> +
+      <input type="number" id="tambah2" readonly> =
+      <input type="number" id="jml">
+      <button onclick="cekjml()">Cek Hasil</button>
     </div>
+    <p id="hasiljml"></p>
+  </div>
 
-    <script>
-        
-        function jumlah () {
-            let tambah1 = Math.floor(Math.random() * 20)
-            let tambah2 = Math.floor(Math.random() * 20)
-            document.getElementById('tambah1').value = tambah1
-            document.getElementById('tambah2').value = tambah2
-        }
-        function cekjml () {
-            document.getElementById('jml')
-            if (jml =(tambah1 + tambah2)) {
-                hasiltext = 'Jawaban Benar'
-            } else {
-                hasiltext = 'Jawaban Salah'
-            }
-            document.getElementById("hasiljml").innerText = hasiltext
-        }
+  <div class="box">
+    <b><u>Pengurangan</u></b>
+    <button onclick="kurang()">Refresh</button>
+    <div>
+      <input type="text" id="kurang1" readonly> -
+      <input type="text" id="kurang2" readonly> =
+      <input type="text" id="krg">
+      <button onclick="cekkrg()">Cek Hasil</button>
+    </div>
+    <p id="hasilkrg"></p>
+  </div>
 
-        function kurang() {
-            let kurang1 = Math.floor(Math.random() * 20)
-            let kurang2 = Math.floor(Math.random() * 20)
-            document.getElementById('kurang1').value = kurang1
-            document.getElementById('kurang2').value = kurang2
-        }
-        function cekkrg () {
-            document.getElementById('krg')
-            if (jml =(kurang1 - kurang)) {
-                hasiltext = 'Jawaban Benar'
-            } else {
-                hasiltext = 'Jawaban Salah'
-            }
-            document.getElementById("hasilkrg").innerText = hasiltext
-        }
-    </script>
+  <div class="box">
+    <b><u>Nilai Bilangan</u></b>
+    <button onclick="digit()">Generate Angka</button>
+    <div>
+      <input type="text" id="dgt" readonly> =
+      <input type="text" id="ratusan" placeholder="Ratusan"> +
+      <input type="text" id="puluhan" placeholder="Puluhan"> +
+      <input type="text" id="satuan" placeholder="Satuan">
+      <button onclick="cekdgt()">Cek Hasil</button>
+    </div>
+    <p id="hasildgt"></p>
+  </div>
+
+  <script>
+    let tambah1 = 0, tambah2 = 0;
+    let kurang1 = 0, kurang2 = 0;
+    let nilai = 0;
+
+    function jumlah() {
+      tambah1 = Math.floor(Math.random() * 900) + 100;
+      tambah2 = Math.floor(Math.random() * 900) + 100;
+      document.getElementById('tambah1').value = tambah1;
+      document.getElementById('tambah2').value = tambah2;
+      document.getElementById('jml').value = "";
+      document.getElementById('hasiljml').innerText = "";
+    }
+
+    function cekjml() {
+      const userInput = parseInt(document.getElementById('jml').value);
+      if (isNaN(userInput)) {
+        document.getElementById("hasiljml").innerText = "Tidak Ada Jawaban, Harus Isi Dulu!!";
+      } else if (userInput === tambah1 + tambah2) {
+        document.getElementById("hasiljml").innerText = "Jawaban Benar";
+      } else {
+        document.getElementById("hasiljml").innerText = "Jawaban Salah";
+      }
+    }
+
+    function kurang() {
+      do {
+        kurang1 = Math.floor(Math.random() * 100);
+        kurang2 = Math.floor(Math.random() * 100);
+      } while (kurang1 <= kurang2);
+      document.getElementById('kurang1').value = kurang1;
+      document.getElementById('kurang2').value = kurang2;
+      document.getElementById('krg').value = "";
+      document.getElementById('hasilkrg').innerText = "";
+    }
+
+    function cekkrg() {
+      const userInput = parseInt(document.getElementById('krg').value);
+      if (isNaN(userInput)) {
+        document.getElementById("hasilkrg").innerText = "Tidak Ada Jawaban, Harus Isi Dulu!!";
+      } else if (userInput === kurang1 - kurang2) {
+        document.getElementById("hasilkrg").innerText = "Jawaban Benar";
+      } else {
+        document.getElementById("hasilkrg").innerText = "Jawaban Salah";
+      }
+    }
+
+    function digit() {
+      nilai = Math.floor(Math.random() * 900) + 100;
+      document.getElementById('dgt').value = nilai;
+      document.getElementById('ratusan').value = "";
+      document.getElementById('puluhan').value = "";
+      document.getElementById('satuan').value = "";
+      document.getElementById('hasildgt').innerText = "";
+    }
+
+    function cekdgt() {
+      const h = parseInt(document.getElementById("ratusan").value);
+      const t = parseInt(document.getElementById("puluhan").value);
+      const u = parseInt(document.getElementById("satuan").value);
+      if (isNaN(h) || isNaN(t) || isNaN(u)) {
+        document.getElementById("hasildgt").innerText = "Tidak Ada Jawaban, Harus Isi Dulu!!";
+      } else if (h * 100 + t * 10 + u === nilai) {
+        document.getElementById("hasildgt").innerText = "Jawaban Benar";
+      } else {
+        document.getElementById("hasildgt").innerText = "Jawaban Salah";
+      }
+    }
+  </script>
 </body>
 </html>
